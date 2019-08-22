@@ -1,13 +1,14 @@
-import express from 'express'
-import { users, tasks } from './db'
+import express from 'express';
+import { users, tasks } from './db';
 
-const app = express()
+const app = express();
 
 app.get('/_ping', (req, res) => {
-  res.send('pong')
-})
+  return res.send('pong');
+});
+
 app.get('/tasks', (req, res) => {
-  res.json(tasks);
+  return res.json(tasks);
 });
 
 app.get('/users/:userId', (req, res) => {
@@ -20,10 +21,10 @@ app.delete('/users/delete/:userId', (req, res) => {
 });
 
 app.get('/users', (req, res) => {
-  res.json(users);
-})
+  return res.json(users);
+});
 
 const port = process.env.PORT || 4000
 app.listen(port, () => {
-  console.log(`Server is listening on port ${port}`)
-})
+  console.log(`Server is listening on port ${port}`);
+});
