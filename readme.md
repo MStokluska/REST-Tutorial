@@ -1,25 +1,25 @@
 NOTE: THIS IS PART 2/4 FOR MY TUTORIAL THAT CAN BE FOUND ON DEV.TO
 
 ----
-#<center>REST in 5 minutes!</center>
+# <center>REST in 5 minutes!</center>
 ----
 
 On a very high level, REST or REpresentational State Transfer is an architectural style that separates the client and a server. A client sends requests to /server and server responds while their concerns are separated, which means, a client has no idea how a server works, all it needs to know is that under given URL certain data is accessed. Server, on the other hand, does not care how many clients, or what clients are going to request the data from it! The client uses [HTTP methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) to access the server, some of which are: GET, POST, PUT, DELETE and PATCH.
 
 The tutorial below will give you a glimpse on how to build typical REST API. We will do that by writing a simple Node.js server! Let's give it a go! Finished version of the tutorial can be found in my [Github repo](https://github.com/MStokluska/REST-Tutorial).
 
-###Requirements
+### Requirements
 
 - Node.js installed
 - Visual Studio Code
 
-###Let's get started 
+### Let's get started 
 
 - Open your Visual Studio Code (VSC) and hit  ctrl + &#96;  to open up the console
 - Create a folder called `server` and navigate to it
 - Type in your console:
 ```
-[@localhost server]$ npm init
+$ npm init
 ```
 This will start npm package creator, feel free to fill in some details but if you want, you can just leave it empty by hitting "Enter" few times!
 
@@ -51,17 +51,17 @@ So it looks like this:
 ```
 - In your command line type
 ```
-[@localhost server]$ npm start
+$ npm start
 ```
 And you should see the "hello world" output in your console! Npm looks through scripts specified in package.json and executes them. Package.json can contain a lot of settings and scripts for your projects, for example, license - MIT means it is "free software" and anyone can use it, there's a lot of useful stuff you can learn about package.json but let's not go into it now;) Without our "start" script we would have to execute:
 ```
-[@localhost server]$ node index.js
+$ node index.js
 ```
 If you are interested you can find more information about scripts [here](https://docs.npmjs.com/misc/scripts).
 
 - Next, we are going to use Express which is a wrapper around the native Node.JS HTTP library which is responsible for handling HTTP requests. So let's add express dependencies to our project:
 ```
-[@localhost server]$ npm install express
+$ npm install express
 ```
 What this command does it simply adding express to our dependencies, one of the reasons why we need express installed is because it allows us to user GET, POST, PUT, DELETE and other HTPP methods in a very easy way!
 
@@ -94,11 +94,11 @@ To summarize, we have set up a node.js server that is using express. Our server 
 
 - To test it, in your console type in:
 ```
-[@localhost server]$ npm start
+$ npm start
 ```
 - Next, open your browser and go to ``http://localhost:4000/_ping`` and enjoy the power of Node.js and express! Pong should be visible in your browser! ...or if you want to stick to console type:
 ```
-[@localhost server]$ curl localhost:4000/_ping
+$ curl localhost:4000/_ping
 ```
 - Our next step is to add some kind of data, for this purpose lets mock a database connection, in a typical situation our server would communicate with a database like postgres, mysql or mongo, but for the purpose of this tutorial, let's use a mock database. Create ``db.js`` file.
 
@@ -176,8 +176,8 @@ app.get('/users', (req, res) => {
 - After adding new routes and restarting the server, visit localhost:4000/users or localhost:4000/tasks from your browser! Or simply,
 in your console type:
 ```
-[@localhost server]$ curl localhost:4000/users
-[@localhost server]$ curl localhost:4000/tasks
+$ curl localhost:4000/users
+$ curl localhost:4000/tasks
 ```
 - Let's imagine we would like to pull users details providing name, we can do it by passing in params, let's assume we know the first names of our users and this is how we would like to find them. Add the following GET method to our index.ts:
 ```js
@@ -187,11 +187,11 @@ app.get('/users/:userName', (req, res) => {
 ```
 and give it a try by using curl or visiting localhost:4000/users/Michael.
 ```
-[@localhost server]$ curl localhost:4000/users/Michael
+$ curl localhost:4000/users/Michael
 ```
 In your response you should have got details concerning Michael only, however, as this GET request takes in PARAM, you can just change the URL to any other name that is in our database to pull the record of the required user! Try this in your command line:
 ```
-[@localhost server]$ curl localhost:4000/users/John
+$ curl localhost:4000/users/John
 ```
 See how cool REST can be?! Now, let's go through another HTTP method - DELETE! To do that add another method to our server:
 ```js
@@ -203,7 +203,7 @@ app.delete('/users/delete/:userName', (req, res) => {
 ``` 
 - In your command line type:
 ```
-[@localhost server]$ curl -X "DELETE" localhost:4000/users/delete/Michael
+$ curl -X "DELETE" localhost:4000/users/delete/Michael
 ```
 With DELETE and a very short JavaScript code we are able to delete an item from our array of users! 
 
@@ -225,14 +225,14 @@ app.post('/users/addUser/:userId&:firstName&:lastName&:title&:email&:taskId', (r
 ```
 - Restart the server and run following curl command:
 ```
-[@localhost server]$ curl -X "POST" http://localhost:4000/users/addUser/9\&Anne\&OBrien\&Ms\&anne@example.com 
+$ curl -X "POST" http://localhost:4000/users/addUser/9\&Anne\&OBrien\&Ms\&anne@example.com 
  \&8
 ```
 - It returns all registered users already but to double check, you can run our curl command for getting all users also to see our database updated with an extra user!
 
 - Lastly, our server accepts only requests from localhost, which even although it is a very simple server, makes it unusable to anyone except ourselves. To change it and allow requests from other sources we need to enable CORS support. I highly recommend reading more about CORS [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS). To do that, first, add dependencies to our project:
 ```
-[@localhost server]$ npm install cors
+$ npm install cors
 ```
 and add the following lines to our index.ts
 ```js
