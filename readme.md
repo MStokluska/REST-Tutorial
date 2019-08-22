@@ -6,13 +6,20 @@
 
 On a very high level, REST or REpresentational State Transfer is an architectural style that separates the client and a server. A client sends requests to /server and server responds while their concerns are separated, which means, a client has no idea how a server works, all it needs to know is that under given URL certain data is accessed. Server, on the other hand, does not care how many clients, or what clients are going to request the data from it! The client uses [HTTP methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) to access the server, some of which are: GET, POST, PUT, DELETE and PATCH.
 
-If REST is something you've never heard of before, I suggest completing steps below first, see what you can understand out of it, and then upskill! I know this might sound like the most ridiculous idea you've ever heard of, but writing code is the best way to learn new technologies, at least for me! Let's give it a go! 
 
-If you ever feel lost during the tutorial have a look at the project at [my github repo](https://github.com/MStokluska/REST-Tutorial).
+In tutorial bellow will give you glipse on how to build typical REST API. We will do that by writing simple Node.js server! Let's give it a go! 
+Finished version of tutorial can be found in[my github repo](https://github.com/MStokluska/REST-Tutorial).
+
+## Requirements
+
+- Node.js installed
+- Visual Studio or other editor
+
+## REST In 5 minutes
 
 - Open your Visual Studio Code (VSC) and hit  ctrl + &#96;  to open up the console
 - Create a folder called `server` and navigate to it
-- Type in your console:  `yarn init` - this will envoke yarn package creator
+- Type in your console:  `npm init` - this will envoke yarn package creator
 - Add `index.js` file and write the following code in:
 
 ```js
