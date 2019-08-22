@@ -1,5 +1,5 @@
 
-export const users = [
+const users = [
   {
     id: '1',
     firstName: 'Michael',
@@ -26,7 +26,7 @@ export const users = [
   },
 ];
 
-export const tasks = [
+const tasks = [
   {
     id: '20',
     title: 'Restocking',
@@ -49,3 +49,6 @@ export const tasks = [
     assignedTo: '3',
   },
 ];
+
+module.exports.users = users;
+module.exports.tasks = tasks;
