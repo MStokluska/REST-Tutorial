@@ -1,4 +1,5 @@
 NOTE: THIS IS PART 2/4 FOR MY TUTORIAL THAT CAN BE FOUND ON DEV.TO
+NOTE: LINK TO DEV.TO (unpublished) : https://dev.to/mstokluska/rest-4559-temp-slug-1084036?preview=499edc364810a5d0d706a9427deaf0d51e9edc299c1356589b1740a15199a655106aa2dd7174005c025caedbf6511c5deeba9d52bb6628ad22e8f5ef
 
 ----
 # <center>REST in 5 minutes!</center>
