@@ -8,11 +8,11 @@ On a very high level, REST or REpresentational State Transfer is an architectura
 
 If REST is something you've never heard of before, I suggest completing steps below first, see what you can understand out of it, and then upskill! I know this might sound like the most ridiculous idea you've ever heard of, but writing code is the best way to learn new technologies, at least for me! Let's give it a go! 
 
-If you ever feel lost during the tutorial feel free to have a look at the project at [my github repo](https://github.com/MStokluska/REST-Tutorial). Feel free to use it!
+If you ever feel lost during the tutorial have a look at the project at [my github repo](https://github.com/MStokluska/REST-Tutorial).
 
 - Open your Visual Studio Code (VSC) and hit  ctrl + &#96;  to open up the console
 - Create a folder called `server` and navigate to it
-- Type in your console:  `yarn init` - this will envoke yarn package creator, feel free to fill in some details but if you want, you can just leave it empty!
+- Type in your console:  `yarn init` - this will envoke yarn package creator
 - Add `index.js` file and write the following code in:
 
 ```js
