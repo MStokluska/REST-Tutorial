@@ -39,7 +39,7 @@ So it looks like this:
   }
 }
 ```
-- Now in your command line type
+- In your command line type
 ```
 [@localhost server]$ yarn start
 ```
@@ -58,7 +58,7 @@ In our server, we are going to use TypeScript, feel free to use javascript if th
 Remember when I mentioned about package manager is responsible for managing dependencies? This is exactly what we did just now! We have added new dependencies to our project, which is support for typescript and interpreter that will transpile required .ts files into JavaScript at runtime.
 - Next, change the extension of your index.js file to index.ts file so it becomes a typescript file! What's happening next is during compiling .ts file gets converted automatically by a node to a .js file!
 
-- Now let's configure few bits and pieces in our Typescript, let's not worry about it too much as this is not meant to be a typescript tutorial, create a new file ``tsconfig.json`` and paste following code:
+- Let's configure few bits and pieces in our Typescript, let's not worry about it too much as this is not meant to be a typescript tutorial, create a new file ``tsconfig.json`` and paste following code:
 
 ```js
 {
@@ -80,12 +80,12 @@ Remember when I mentioned about package manager is responsible for managing depe
 }
 ```
 
-- Now once we have changed our .js file into .ts file and have our typescript configured, we have to edit our "start" script from package.json as file index.js is no longer available and we no longer going to use node to start it, instead we are going to use ts-node.
+- Once we have changed our .js file into .ts file and have our typescript configured, we have to edit our "start" script from package.json as file index.js is no longer available and we no longer going to use node to start it, instead we are going to use ts-node.
 So lets change our start script to:
 ```js
 "start": "ts-node index.ts"
 ```
-- Next, we are going to use Express which is a wrapper around the native Node.JS HTTP library which is responsible for handling HTTP requests. So let's add express dependencies to our project along with typescript support of express by:
+- We are going to use Express which is a wrapper around the native Node.JS HTTP library which is responsible for handling HTTP requests. So let's add express dependencies to our project along with typescript support of express by:
 ```
 [@localhost server]$ yarn add express
 [@localhost server]$ yarn add --dev @types/express
@@ -122,7 +122,7 @@ To summarize, we have set up a node.js server that is using express. Our server 
 ```
 [@localhost server]$ yarn start
 ```
-- Next, open your browser and go to ``http://localhost:4000/_ping`` and enjoy the power of express! Pong should be visible in your browser! ...or if you want to stick to console type:
+- Open your browser and go to ``http://localhost:4000/_ping`` and enjoy the power of express! Pong should be visible in your browser! ...or if you want to stick to console type:
 ```
 [@localhost server]$ curl localhost:4000/_ping
 ```
@@ -182,7 +182,7 @@ export const tasks = [
 ```
 Our database is very simple, it contains of few users and few tasks, each person has an assigned task and each task is assigned to a certain user.
 
-- Next, as we don't want to be sending pong only anymore to our client but the actual data, add the following lines to our index:
+- As we don't want to be sending pong only anymore to our client but the actual data, add the following lines to our index:
 ```js
 import { chats, tasks } from './db';
 ```
@@ -202,7 +202,7 @@ in your console type:
 [@localhost server]$ curl localhost:4000/users
 [@localhost server]$ curl localhost:4000/tasks
 ```
-- Now let's imagine we would like to pull users details providing name, we can do it by passing in params, let's assume we know the first names of our users and this is how we would like to find them. Add the following GET method to our index.ts:
+- Let's imagine we would like to pull users details providing name, we can do it by passing in params, let's assume we know the first names of our users and this is how we would like to find them. Add the following GET method to our index.ts:
 ```js
 app.get('/users/:userId', (req, res) => {
     return res.send(users[users.findIndex(u => u.firstName === req.params.userId)]);
@@ -223,7 +223,7 @@ app.delete('/users/delete/:userId', (req, res) => {
     return res.json(users.splice(indexOfUserToBeDeleted));
   });
 ``` 
-- Next, open you Advanced REST Client and make sure you got the following set up:
+- Open you Advanced REST Client and make sure you got the following set up:
 
 ![REST Client Delete setup](https://thepracticaldev.s3.amazonaws.com/i/gfovraize65jxg9cyasq.png)
 
