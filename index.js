@@ -22,7 +22,7 @@ app.get('/users/:userName', (req, res) => {
     res.send(users[users.findIndex(u => u.firstName === req.params.userName)]);
 });
 
-app.delete('/users/delete/:userName', (req, res) => {
+app.delete('/users/:userName', (req, res) => {
     const indexOfUserToBeDeleted = users.findIndex(u => u.firstName === req.params.userName);
     users.splice(indexOfUserToBeDeleted, 1);
     res.json(users);
@@ -39,7 +39,7 @@ app.post('/users/addUser/:userId&:firstName&:lastName&:title&:email&:taskId', (r
     };
     users.push(newUser);
     res.json(users);
-})
+});
 
 const port = 4000
 app.listen(port, () => {
