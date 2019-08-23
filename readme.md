@@ -1,5 +1,4 @@
-NOTE: THIS IS PART 2/4 FOR MY TUTORIAL THAT CAN BE FOUND ON DEV.TO
-NOTE: LINK TO DEV.TO (unpublished) : https://dev.to/mstokluska/rest-4559-temp-slug-1084036?preview=499edc364810a5d0d706a9427deaf0d51e9edc299c1356589b1740a15199a655106aa2dd7174005c025caedbf6511c5deeba9d52bb6628ad22e8f5ef
+Link to dev.to(unpublished): https://dev.to/mstokluska/rest-4559-temp-slug-1084036?preview=499edc364810a5d0d706a9427deaf0d51e9edc299c1356589b1740a15199a655106aa2dd7174005c025caedbf6511c5deeba9d52bb6628ad22e8f5ef
 
 ----
 # <center>REST in 5 minutes!</center>
@@ -7,9 +6,11 @@ NOTE: LINK TO DEV.TO (unpublished) : https://dev.to/mstokluska/rest-4559-temp-sl
 
 On a very high level, REST or Representational State Transfer is an architectural style that separates the client and a server. A client sends requests to a server, and the server responds while their concerns are separated, which means a client has no idea how a server works, all it needs to know is that from a given URL, certain data is accessed.
 
-The server, on the other hand, does not care how many clients, or which clients are going to request the data from it. The client uses [HTTP methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) to access the server, the most common of which are: GET, POST, PUT, DELETE and PATCH.
+The server, on the other hand, does not care how many clients are going to request the data from it. 
 
-The tutorial below will give you a glimpse on how to a build typical REST API. We will do that by writing a simple Node.js server. Let's give it a go! You can find a finished version of the tutorial in my [Github repo](https://github.com/MStokluska/REST-Tutorial).
+The client uses [HTTP methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) to access the server, the most common of which are: GET, POST, PUT, DELETE and PATCH.
+
+The tutorial below will give you a glimpse on how to build typical REST API. We will do that by writing a simple Node.js server. Let's give it a go! You can find a finished version of the tutorial in my [Github repo](https://github.com/MStokluska/REST-Tutorial).
 
 ## Requirements
 
@@ -23,7 +24,7 @@ The tutorial below will give you a glimpse on how to a build typical REST API. W
 - Type in your console:
 
 ```sh
-npm init
+& npm init
 ```
 
 This will start npm package creator, feel free to fill in some details but if you want, you can just leave it empty by hitting "Enter" few times!
@@ -59,13 +60,13 @@ So it looks like this:
 In your command line type:
 
 ```sh
-npm start
+$ npm start
 ```
 
 And you should see the "hello world" output in your console! Npm looks through scripts specified in package.json and executes them. Package.json can contain a lot of settings and scripts for your projects, for example, license - MIT means it is "free software" and anyone can use it, there's a lot of useful stuff you can learn about package.json but let's not go into it now;) Without our "start" script we would have to execute:
 
 ```sh
-node index.js
+$ node index.js
 ```
 
 If you are interested you can find more information about scripts [here](https://docs.npmjs.com/misc/scripts).
@@ -73,7 +74,7 @@ If you are interested you can find more information about scripts [here](https:/
 Next, we are going to use Express which is a wrapper around the native Node.JS HTTP library which is responsible for handling HTTP requests. So let's add express dependencies to our project:
 
 ```sh
-npm install express
+$ npm install express
 ```
 
 What this command does is simply adding express to our dependencies, one of the reasons why we need express installed is because it allows us to user GET, POST, PUT, DELETE and other HTTP methods in a very easy way!
@@ -107,7 +108,7 @@ To summarize, we have set up a Node.js server that is using express. Our server 
 To test it, in your console run:
 
 ```sh
-npm start
+$ npm start
 ```
 
 Next, open your browser and go to `http://localhost:4000/_ping` and enjoy the power of Node.js and express! Pong should be visible in your browser! ...or if you want to stick to console type:
@@ -223,7 +224,7 @@ In your response you should have received details concerning Michael only. As th
 $ curl localhost:4000/users/John
 ```
 
-See how cool REST can be?! Now, let's go through another HTTP method - DELETE! To do that add another method to our server:
+Now, let's go through another HTTP method - DELETE! To do that add another method to our server:
 
 ```js
 app.delete('/users/:userName', (req, res) => {
@@ -247,25 +248,39 @@ Add a POST method to `index.js`:
 
 ```js
 app.post('/users', (req, res) => {
-    const user = req.body();
-
-    users.push(user);
-    res.json(users);
+  const user = req.body();
+  users.push(user);
+  res.json(users);
 });
 ```
-
-Restart the server and run following curl command:
-
+- Before we can use POST method in our API we need to add a JSON body parser to our express app as the POST methods will contain JSON objects that need to be accessed. To do this install:
+```sh
+$ npm install body-parser
 ```
-$ curl -X "POST" http://localhost:4000/users
+- Then we have to add body parser to our app in `index.js` :
+```js
+const express = require('express');
+const { users, tasks } = require('./db');
+const cors = require('cors')
+const bodyParser = require('body-parser') <------------------
+
+const app = express();
+app.use(cors())
+app.use(bodyParser.json());               <------------------
+...
 ```
-
-This returns all registered users already but to double check, you can run our curl command for getting all users also to see our mock database updated with an extra user!
-
-Finally, our server only allows requests from localhost, which even although it is a very simple server, makes it unusable to anyone except ourselves. To change it and allow requests from other sources we need to enable CORS support. I highly recommend reading more about CORS [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS). To do that, first, add dependencies to our project:
+- Restart the server and run following curl command:
 
 ```sh
-npm install cors
+$ curl -d '{"id":"4", "firstName":"Anne", "lastName":"OBrien", "title":"Ms", "email":"anne@example.com", "taskId":"23"}' -H "Content-Type: application/json" -X POST http://localhost:4000/users
+```
+
+You should see our newly added user in the response.
+
+Finally, our server only allows requests from localhost, which even although it is a very simple server, makes it unusable to anyone except ourselves. To change it and allow requests from other sources we need to enable CORS support which allows you to make requests from one website to another website in the browser, this is normally prohibited by another browser policy called the Same-Origin Policy (SOP). I highly recommend reading more about CORS [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS). To do that, first, add dependencies to our project:
+
+```sh
+$ npm install cors
 ```
 
 and add the following lines to our `index.js`:
@@ -282,11 +297,12 @@ Your `index.js` should look like this:
 ```js
 const express = require('express');
 const { users, tasks } = require('./db');
-const cors = require('cors')
+const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const app = express();
-
 app.use(cors());
+app.use(bodyParser.json());
 
 app.get('/_ping', (req, res) => {
     res.send('pong');
@@ -304,19 +320,19 @@ app.get('/users/:userName', (req, res) => {
     res.send(users[users.findIndex(u => u.firstName === req.params.userName)]);
 });
 
-app.delete('/users/:userName', (req, res) => {
-    const indexOfUserToBeDeleted = users.findIndex(u => u.firstName === req.params.userName);
-    users.splice(indexOfUserToBeDeleted, 1);
+app.post('/users', (req, res) => {
+    const user = req.body;
+    console.log(req.body)
+    users.push(user);
     res.json(users);
 });
 
-app.post('/users', (req, res) => {
-    const user = req.body();
-    users.push(newUser);
-    res.json(users);
-})
+app.delete('/users/:userName', (req, res) => {
+    const indexOfUserToBeDeleted = users.findIndex(u => u.firstName === req.params.userName);
+    return res.json(users.splice(indexOfUserToBeDeleted, 1));
+});
 
-const port = 4000;
+const port = 4000
 app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
 });
@@ -330,4 +346,4 @@ It was also a huge eye-opener for me as for understanding client-server architec
 
 Imagine that everything we did so far would need to be accessing the database through, for example, SQL statements, that would need to be placed in a different layer of our server to hide business logic! Imagine writing all those REST endpoints for your "dream" application! Not that easy anymore, is it?!
 
-In my next post, let's learn about GraphQL!
+In my next post, let's learn about [GraphQL!](https://dev.to/mstokluska/technologies-that-changed-my-perception-of-software-development-514o-temp-slug-9091855?preview=b2b0b8ac7f06850f80c48acef4b4ecabbcc4bc9e17ac24aaee54a92d445a726b93f98d34d347f67c5d3790bb21672185625b38f389f912606739cfdf)!
