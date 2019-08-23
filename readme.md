@@ -24,7 +24,7 @@ The tutorial below will give you a glimpse on how to build typical REST API. We 
 - Type in your console:
 
 ```sh
-& npm init
+$ npm init
 ```
 
 This will start npm package creator, feel free to fill in some details but if you want, you can just leave it empty by hitting "Enter" few times!
