@@ -1,10 +1,11 @@
 const express = require('express');
 const { users, tasks } = require('./db');
-const cors = require('cors')
+const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const app = express();
-
-app.use(cors())
+app.use(cors());
+app.use(bodyParser.json());
 
 app.get('/_ping', (req, res) => {
     res.send('pong');
@@ -22,23 +23,16 @@ app.get('/users/:userName', (req, res) => {
     res.send(users[users.findIndex(u => u.firstName === req.params.userName)]);
 });
 
-app.delete('/users/:userName', (req, res) => {
-    const indexOfUserToBeDeleted = users.findIndex(u => u.firstName === req.params.userName);
-    users.splice(indexOfUserToBeDeleted, 1);
+app.post('/users', (req, res) => {
+    const user = req.body;
+    console.log(req.body)
+    users.push(user);
     res.json(users);
 });
 
-app.post('/users/addUser/:userId&:firstName&:lastName&:title&:email&:taskId', (req, res) => {
-    const newUser = {
-        userId: req.params.userId,
-        firstName: req.params.firstName,
-        lastName: req.params.lastName,
-        title: req.params.title,
-        email: req.params.email,
-        taskId: req.params.taskId,
-    };
-    users.push(newUser);
-    res.json(users);
+app.delete('/users/:userName', (req, res) => {
+    const indexOfUserToBeDeleted = users.findIndex(u => u.firstName === req.params.userName);
+    return res.json(users.splice(indexOfUserToBeDeleted, 1));
 });
 
 const port = 4000
