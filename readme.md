@@ -176,13 +176,13 @@ const users = [
 
 Our database is very simple, it contains few users and few tasks, each person has an assigned task and each task is assigned to a certain user.
 
-Next, as we don't want to be sending "pong" only anymore to our client but the actual data, add the following lines to our index:
+Next, as we don't want to be sending "pong" only anymore to our client but the actual data, add the following lines to our index.js:
 
 ```js
 const { users, tasks } = require('./db');
 ```
 
-- Which allows us to access tasks and users objects from db file, and also, add other routes to our index:
+- Which allows us to access tasks and users objects from db file, and also, add other routes to our index.js:
 
 ```js
 app.get('/tasks', (req, res) => {
@@ -248,7 +248,7 @@ Add a POST method to `index.js`:
 
 ```js
 app.post('/users', (req, res) => {
-  const user = req.body();
+  const user = req.body;
   users.push(user);
   res.json(users);
 });
@@ -257,15 +257,14 @@ app.post('/users', (req, res) => {
 ```sh
 $ npm install body-parser
 ```
-- Then we have to add body parser to our app in `index.js` :
+- Then we have to add body parser to our app in `index.js`:
+
 ```js
 const express = require('express');
 const { users, tasks } = require('./db');
-const cors = require('cors')
-const bodyParser = require('body-parser') <------------------
+const bodyParser = require('body-parser'); <------------------
 
 const app = express();
-app.use(cors())
 app.use(bodyParser.json());               <------------------
 ...
 ```
@@ -286,10 +285,14 @@ $ npm install cors
 and add the following lines to our `index.js`:
 
 ```js
-const cors = require('cors')     <---------------------------------
 const express = require('express');
 const { users, tasks } = require('./db');
-app.use(cors());             <---------------------------------
+const cors = require('cors');   <---------------------------------
+const bodyParser = require('body-parser');
+
+const app = express();
+app.use(cors());    <---------------------------------
+app.use(bodyParser.json());
 ```
 
 Your `index.js` should look like this:
