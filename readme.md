@@ -265,7 +265,7 @@ const { users, tasks } = require('./db');
 const bodyParser = require('body-parser'); <------------------
 
 const app = express();
-app.use(bodyParser.json());               <------------------
+app.use(bodyParser.json());               <-------------------
 ...
 ```
 - Restart the server and run following curl command:
@@ -325,7 +325,6 @@ app.get('/users/:userName', (req, res) => {
 
 app.post('/users', (req, res) => {
     const user = req.body;
-    console.log(req.body)
     users.push(user);
     res.json(users);
 });
