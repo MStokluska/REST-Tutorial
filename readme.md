@@ -1,7 +1,7 @@
 Link to dev.to(unpublished): https://dev.to/mstokluska/rest-4559-temp-slug-1084036?preview=499edc364810a5d0d706a9427deaf0d51e9edc299c1356589b1740a15199a655106aa2dd7174005c025caedbf6511c5deeba9d52bb6628ad22e8f5ef
 
 ----
-# <center>REST in 5 minutes!</center>
+# <center>REST in 10 minutes!</center>
 ----
 
 On a very high level, REST or Representational State Transfer is an architectural style that separates the client and a server. A client sends requests to a server, and the server responds while their concerns are separated, which means a client has no idea how a server works, all it needs to know is that from a given URL, certain data is accessed.
