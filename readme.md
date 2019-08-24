@@ -10,7 +10,7 @@ The server, on the other hand, does not care how many clients are going to reque
 
 The client uses [HTTP methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) to access the server, the most common of which are: GET, POST, PUT, DELETE and PATCH.
 
-The tutorial below will give you a glimpse on how to build typical REST API. We will do that by writing a simple Node.js server. Let's give it a go! You can find a finished version of the tutorial in my [Github repo](https://github.com/MStokluska/REST-Tutorial).
+The tutorial below will give you a glimpse on how to build typical REST API. We will do that by writing a simple Node.js server with Express. Let's give it a go! You can find a finished version of the tutorial in my [Github repo](https://github.com/MStokluska/REST-Tutorial).
 
 ## Requirements
 
@@ -176,13 +176,13 @@ const users = [
 
 Our database is very simple, it contains few users and few tasks, each person has an assigned task and each task is assigned to a certain user.
 
-Next, as we don't want to be sending "pong" only anymore to our client but the actual data, add the following lines to our index.js:
+Next, as we don't want to be sending "pong" only anymore to our client but the actual data, add the following lines to our `index.js`:
 
 ```js
 const { users, tasks } = require('./db');
 ```
 
-- Which allows us to access tasks and users objects from db file, and also, add other routes to our index.js:
+- Which allows us to access tasks and users objects from db file, and also, add other routes to our `index.js`:
 
 ```js
 app.get('/tasks', (req, res) => {
@@ -248,7 +248,7 @@ Add a POST method to `index.js`:
 
 ```js
 app.post('/users', (req, res) => {
-  const user = req.body;
+  const user = req.body();
   users.push(user);
   res.json(users);
 });
@@ -257,15 +257,16 @@ app.post('/users', (req, res) => {
 ```sh
 $ npm install body-parser
 ```
-- Then we have to add body parser to our app in `index.js`:
-
+- Then we have to add body parser to our app in `index.js` :
 ```js
 const express = require('express');
 const { users, tasks } = require('./db');
+const cors = require('cors');
 const bodyParser = require('body-parser'); <------------------
 
 const app = express();
-app.use(bodyParser.json());               <-------------------
+app.use(cors());
+app.use(bodyParser.json());               <------------------
 ...
 ```
 - Restart the server and run following curl command:
@@ -285,14 +286,10 @@ $ npm install cors
 and add the following lines to our `index.js`:
 
 ```js
+const cors = require('cors');     <---------------------------------
 const express = require('express');
 const { users, tasks } = require('./db');
-const cors = require('cors');   <---------------------------------
-const bodyParser = require('body-parser');
-
-const app = express();
-app.use(cors());    <---------------------------------
-app.use(bodyParser.json());
+app.use(cors());             <---------------------------------
 ```
 
 Your `index.js` should look like this:
