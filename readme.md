@@ -127,7 +127,6 @@ const users = [
       lastName: 'Stone',
       title: 'Mr',
       email: 'michael@example.com',
-      taskId: '20',
     },
     {
       id: '2',
@@ -135,7 +134,6 @@ const users = [
       lastName: 'Barry',
       title: 'Mr',
       email: 'john@example.com',
-      taskId: '21',
     },
     {
       id: '3',
@@ -143,7 +141,6 @@ const users = [
       lastName: 'Savage',
       title: 'Mrs',
       email: 'mary@example.com',
-      taskId: '22',
     },
   ];
   
@@ -174,7 +171,7 @@ const users = [
   module.exports = { users, tasks };
 ```
 
-Our database is very simple, it contains few users and few tasks, each person has an assigned task and each task is assigned to a certain user.
+Our database is very simple, it contains few users and few tasks, each task is assigned to a certain user.
 
 Next, as we don't want to be sending "pong" only anymore to our client but the actual data, add the following lines to our `index.js`:
 
@@ -265,13 +262,13 @@ const bodyParser = require('body-parser'); <------------------
 
 const app = express();
 
-app.use(bodyParser.json());               <------------------
+app.use(bodyParser.json());               <-------------------
 ...
 ```
 - Restart the server and run following curl command:
 
 ```sh
-$ curl -d '{"id":"4", "firstName":"Anne", "lastName":"OBrien", "title":"Ms", "email":"anne@example.com", "taskId":"23"}' -H "Content-Type: application/json" -X POST http://localhost:4000/users
+$ curl -d '{"id":"4", "firstName":"Anne", "lastName":"OBrien", "title":"Ms", "email":"anne@example.com"}' -H "Content-Type: application/json" -X POST http://localhost:4000/users
 ```
 
 You should see our newly added user in the response.
