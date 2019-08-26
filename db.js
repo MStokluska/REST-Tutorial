@@ -6,7 +6,6 @@ const users = [
     lastName: 'Stone',
     title: 'Mr',
     email: 'michael@example.com',
-    taskId: '20',
   },
   {
     id: '2',
@@ -14,7 +13,6 @@ const users = [
     lastName: 'Barry',
     title: 'Mr',
     email: 'john@example.com',
-    taskId: '21',
   },
   {
     id: '3',
@@ -22,7 +20,6 @@ const users = [
     lastName: 'Savage',
     title: 'Mrs',
     email: 'mary@example.com',
-    taskId: '22',
   },
 ];
 
