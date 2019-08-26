@@ -117,7 +117,7 @@ Next, open your browser and go to `http://localhost:4000/_ping` and enjoy the po
 $ curl localhost:4000/_ping
 ```
 
-Our next step is to add some kind of data, for this purpose lets mock a database connection, in a typical situation our server would communicate with a database like postgres, mysql or mongo, but for the purpose of this tutorial, let's use a mock database. Create `db.js` file.
+Our next step is to add some kind of data, for this purpose lets mock a database connection, in a typical situation our server would communicate with a database like postgres, mysql or mongo, but for the purpose of this tutorial, let's use a mock database. Create `db.js` file and copy following code:
 
 ```js
 const users = [
@@ -248,7 +248,7 @@ Add a POST method to `index.js`:
 
 ```js
 app.post('/users', (req, res) => {
-  const user = req.body();
+  const user = req.body;
   users.push(user);
   res.json(users);
 });
@@ -261,11 +261,10 @@ $ npm install body-parser
 ```js
 const express = require('express');
 const { users, tasks } = require('./db');
-const cors = require('cors');
 const bodyParser = require('body-parser'); <------------------
 
 const app = express();
-app.use(cors());
+
 app.use(bodyParser.json());               <------------------
 ...
 ```
@@ -277,31 +276,14 @@ $ curl -d '{"id":"4", "firstName":"Anne", "lastName":"OBrien", "title":"Ms", "em
 
 You should see our newly added user in the response.
 
-Finally, our server only allows requests from localhost, which even although it is a very simple server, makes it unusable to anyone except ourselves. To change it and allow requests from other sources we need to enable CORS support which allows you to make requests from one website to another website in the browser, this is normally prohibited by another browser policy called the Same-Origin Policy (SOP). I highly recommend reading more about CORS [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS). To do that, first, add dependencies to our project:
-
-```sh
-$ npm install cors
-```
-
-and add the following lines to our `index.js`:
-
-```js
-const cors = require('cors');     <---------------------------------
-const express = require('express');
-const { users, tasks } = require('./db');
-app.use(cors());             <---------------------------------
-```
-
 Your `index.js` should look like this:
 
 ```js
 const express = require('express');
 const { users, tasks } = require('./db');
-const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const app = express();
-app.use(cors());
 app.use(bodyParser.json());
 
 app.get('/_ping', (req, res) => {
@@ -331,7 +313,7 @@ app.delete('/users/:userName', (req, res) => {
     return res.json(users.splice(indexOfUserToBeDeleted, 1));
 });
 
-const port = 4000
+const port = 4000;
 app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
 });
