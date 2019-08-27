@@ -10,7 +10,7 @@ The server, on the other hand, does not care how many clients are going to reque
 
 The client uses [HTTP methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) to access the server, the most common of which are: GET, POST, PUT, DELETE and PATCH.
 
-The tutorial below will give you a glimpse on how to build typical REST API. We will do that by writing a simple Node.js server with Express. Let's give it a go! You can find a finished version of the tutorial in my [Github repo](https://github.com/MStokluska/REST-Tutorial).
+The tutorial below will give you a glimpse of how to build a typical REST API. We will do that by writing a simple Node.js server with Express. Let's give it a go! You can find a finished version of the tutorial in my [Github repo](https://github.com/MStokluska/REST-Tutorial).
 
 ## Requirements
 
@@ -19,23 +19,26 @@ The tutorial below will give you a glimpse on how to build typical REST API. We 
 
 ## Let's get started
 
-- Open your Visual Studio Code (VSC) and hit  ctrl + &#96;  to open up the console
+- Open your Visual Studio Code (VSC) and hit ``ctrl + (back tick `)`` to open up the terminal
 - Create a folder called `server` and navigate to it
-- Type in your console:
+- Type the following into the terminal:
 
 ```sh
 $ npm init
 ```
 
-This will start npm package creator, feel free to fill in some details but if you want, you can just leave it empty by hitting "Enter" few times!
+This will start the npm package creator, feel free to fill in some details if you want or you can just leave it empty by hitting "Enter" few times!
 
-Add an `index.js` file and write the following code in:
+Add an `index.js` file and enter the following code:
+
 
 ```js
 console.log("hello world")
 ```
 
-In your `package.json` add a start script and if you have an echo script, you can delete it:
+`Note`: Don't foget to save your work in Visual Studio Code after each code input by clicking `ctrl + s`
+
+In your `package.json` file add a start script and if there is an echo script, you can delete it:
 
 ```json
  "scripts": {
@@ -43,7 +46,7 @@ In your `package.json` add a start script and if you have an echo script, you ca
   }
 ```
 
-So it looks like this:
+It should look like this:
 
 ```json
 {
@@ -57,13 +60,13 @@ So it looks like this:
 }
 ```
 
-In your command line type:
+In the terminal type:
 
 ```sh
 $ npm start
 ```
 
-And you should see the "hello world" output in your console! Npm looks through scripts specified in package.json and executes them. Package.json can contain a lot of settings and scripts for your projects, for example, license - MIT means it is "free software" and anyone can use it, there's a lot of useful stuff you can learn about package.json but let's not go into it now;) Without our "start" script we would have to execute:
+You should see the "hello world" output in the terminal! Npm looks through scripts specified in package.json and executes them. Package.json can contain a lot of settings and scripts for your projects, for example, license - MIT means it is a "free software" and anyone can use it. There's a lot of useful stuff you can learn about package.json but let's not go into that now;) Without our "start" script we would have to execute:
 
 ```sh
 $ node index.js
@@ -71,13 +74,13 @@ $ node index.js
 
 If you are interested you can find more information about scripts [here](https://docs.npmjs.com/misc/scripts).
 
-Next, we are going to use Express which is a wrapper around the native Node.JS HTTP library which is responsible for handling HTTP requests. So let's add express dependencies to our project:
+Next, we are going to use Express which is a wrapper around the native Node.JS HTTP library and is responsible for handling HTTP requests. So let's add express dependencies to our project:
 
 ```sh
 $ npm install express
 ```
 
-What this command does is simply adding express to our dependencies, one of the reasons why we need express installed is because it allows us to user GET, POST, PUT, DELETE and other HTTP methods in a very easy way!
+What this command does is simply add express to our dependencies. One of the reasons we need express installed is because it allows us to use GET, POST, PUT, DELETE and other HTTP methods in a very easy way!
 
 Once that's done, we can finally start up our very first express server! Edit your index.js to look like this:
 
@@ -105,19 +108,20 @@ app.listen(port, () => {
 
 To summarize, we have set up a Node.js server that is using express. Our server listens on `localhost:4000`, accepts requests from `/_ping` and responds with pong.
 
-To test it, in your console run:
+To test it, in your terminal run:
 
 ```sh
 $ npm start
 ```
 
-Next, open your browser and go to `http://localhost:4000/_ping` and enjoy the power of Node.js and express! Pong should be visible in your browser! ...or if you want to stick to console type:
+Next, open your browser, go to `http://localhost:4000/_ping` and enjoy the power of Node.js and express! Pong should be displayed in your browser. If you want to stay in the terminal:
 
 ```sh
 $ curl localhost:4000/_ping
 ```
+`Note`: To use `curl` start up the server as mentioned above, open another terminal window and then run your `curl` commands in this window. 
 
-Our next step is to add some kind of data, for this purpose lets mock a database connection, in a typical situation our server would communicate with a database like postgres, mysql or mongo, but for the purpose of this tutorial, let's use a mock database. Create `db.js` file and copy following code:
+Our next step is to add some kind of data. For this purpose, lets mock a database connection. In a typical situation our server would communicate with a database like Postgres, MySQL or Mongo, but for the purpose of this tutorial, let's use a mock database. Create a `db.js` file and copy following code:
 
 ```js
 const users = [
@@ -171,15 +175,15 @@ const users = [
   module.exports = { users, tasks };
 ```
 
-Our database is very simple, it contains few users and few tasks, each task is assigned to a certain user.
+This is a very simple database with only a few users and tasks and each task is assigned to a certain user.
 
-Next, as we don't want to be sending "pong" only anymore to our client but the actual data, add the following lines to our `index.js`:
+As we want to send the actual data to our client now and not just "pong", add the following lines to our `index.js`:
 
 ```js
 const { users, tasks } = require('./db');
 ```
 
-- Which allows us to access tasks and users objects from db file, and also, add other routes to our `index.js`:
+- This allows us to access tasks and users objects from db file, and also, add other routes to our `index.js`:
 
 ```js
 app.get('/tasks', (req, res) => {
@@ -191,7 +195,7 @@ app.get('/users', (req, res) => {
 });
 ```
 
-After adding new routes and restarting the server, visit localhost:4000/users or localhost:4000/tasks from your browser! Or in your console, simply type:
+After adding new routes and restarting the server, `ctrl + c` to stop current connection and then `npm start` to restart, visit localhost:4000/users or localhost:4000/tasks from your browser! Or in the terminal simply type:
 
 ```
 $ curl localhost:4000/users
@@ -209,7 +213,7 @@ app.get('/users/:userName', (req, res) => {
   });
 ```
 
-and give it a try by using curl or visiting `localhost:4000/users/Michael`.
+Restart the server and give it a try by using curl or visiting `localhost:4000/users/Michael`.
 
 ```
 $ curl localhost:4000/users/Michael
@@ -221,7 +225,7 @@ In your response you should have received details concerning Michael only. As th
 $ curl localhost:4000/users/John
 ```
 
-Now, let's go through another HTTP method - DELETE! To do that add another method to our server:
+Now, let's go through another HTTP method - DELETE! To do that add another method to `index.js`:
 
 ```js
 app.delete('/users/:userName', (req, res) => {
@@ -231,7 +235,7 @@ app.delete('/users/:userName', (req, res) => {
 });
 ```
 
-In your command line type:
+Restart your server and in the terminal type:
 
 ```sh
 $ curl -X "DELETE" localhost:4000/users/Michael
@@ -239,7 +243,7 @@ $ curl -X "DELETE" localhost:4000/users/Michael
 
 With DELETE and a very short JavaScript code we are able to delete an item from our array of users!
 
-One last method I would like to go through is POST. POST can be used to input new object into our array or update the existing one. Let's use it to add a new user object to our users array!
+One last method I would like to go through is POST. POST can be used to input a new object into our array or update the existing one. Let's use it to add a new user object to our users array!
 
 Add a POST method to `index.js`:
 
@@ -250,7 +254,7 @@ app.post('/users', (req, res) => {
   res.json(users);
 });
 ```
-- Before we can use POST method in our API we need to add a JSON body parser to our express app as the POST methods will contain JSON objects that need to be accessed. To do this install:
+- Before we can use the POST method in our API we need to add a JSON body parser to our express app, as the POST methods will contain JSON objects that need to be accessed. To do this install:
 ```sh
 $ npm install body-parser
 ```
@@ -265,7 +269,7 @@ const app = express();
 app.use(bodyParser.json());               <-------------------
 ...
 ```
-- Restart the server and run following curl command:
+- Restart the server and run the following curl command:
 
 ```sh
 $ curl -d '{"id":"4", "firstName":"Anne", "lastName":"OBrien", "title":"Ms", "email":"anne@example.com"}' -H "Content-Type: application/json" -X POST http://localhost:4000/users
@@ -318,10 +322,10 @@ app.listen(port, () => {
 
 ## Summary
 
-There you go! Your very first Node.js server that uses Express with REST endpoints. It is very easy, there's a lot more you can do with REST, but I guess my target here was to give you a brief idea of what REST is. What we just did is similar to what I was exposed to on my adventure to become a software developer, which is still ongoing 😉
+There you go! Your very first Node.js server that uses Express with REST endpoints. It is very easy and there's a lot more you can do with REST, but my target here was to give you a basic understanding of REST. What you just completed is similar to what I was exposed to in the beginning of my adventure in becoming a Software Developer, which is still ongoing 😉
 
-It was also a huge eye-opener for me as for understanding client-server architecture! However,as I'm sure you can imagine now, you need to expose a different endpoint for each data you want to send, our project has only 2 entities, users and tasks, and it's very plain and simple - imagine how complex REST could be if you add another 10, 20 or more entities which can somehow interact with each other!
+It was also a huge eye-opener for me to help me understand client-server architecture! However,as I'm sure you can imagine, you need to expose a different endpoint for each data you want to send. Our project has only 2 entities, users and tasks, which is plain and simple but imagine how complex REST could be if you add another 10, 20 or even more entities which need to somehow interact with each other!
 
-Imagine that everything we did so far would need to be accessing the database through, for example, SQL statements, that would need to be placed in a different layer of our server to hide business logic! Imagine writing all those REST endpoints for your "dream" application! Not that easy anymore, is it?!
+Imagine that everything we did so far would need to be accessing the database through, for example, SQL statements. These statements would need to be placed in a different layer of our server to hide business logic! Imagine writing all those REST endpoints for your "dream" application! Not that easy anymore, is it?!
 
 In my next post, let's learn about [GraphQL!](https://dev.to/mstokluska/technologies-that-changed-my-perception-of-software-development-514o-temp-slug-9091855?preview=b2b0b8ac7f06850f80c48acef4b4ecabbcc4bc9e17ac24aaee54a92d445a726b93f98d34d347f67c5d3790bb21672185625b38f389f912606739cfdf)!
